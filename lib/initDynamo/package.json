@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.143",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.624.0",
+    "@aws-sdk/types": "^3.609.0",
+    "@aws-sdk/util-dynamodb": "^3.624.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.2.0",
+    "@types/cfn-response": "^1.0.8",
+    "cfn-response": "^1.0.1",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "watch": "tsc --build -w",
+    "debug": "tsc --build --clean && tsc --build && ts-node debug.ts"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "pk": {
+    "S": "menu"
+  },
+  "value": {
+    "L": [
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Espresso"
+          },
+          "icon": {
+            "S": "barista-icons_espresso-alternative"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      },
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Cappuccino"
+          },
+          "icon": {
+            "S": "barista-icons_cappuccino-alternative"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      },
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Latte"
+          },
+          "icon": {
+            "S": "barista-icons_cafe-latte"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      },
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Flat White"
+          },
+          "icon": {
+            "S": "barista-icons_flat-white-alternative@2x"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      },
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Americano"
+          },
+          "icon": {
+            "S": "barista-icons_americano"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      },
+      {
+        "M": {
+          "available": {
+            "BOOL": true
+          },
+          "drink": {
+            "S": "Coffee of the day"
+          },
+          "icon": {
+            "S": "barista-icons_americano"
+          },
+          "modifiers": {
+            "L": []
+          }
+        }
+      }
+    ]
+  }
+}
