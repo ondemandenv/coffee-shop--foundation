@@ -31,8 +31,6 @@ async function main() {
 
     new CoffeeShopFoundationStack(app, targetEnver.getRevStackNames()[0], props)
 
-
-    // [].splice()
 }
 
 
