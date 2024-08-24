@@ -68,7 +68,5 @@ export class CoffeeShopFoundationStack extends cdk.Stack {
             ])
         )
 
-        console.log(myEnver)
-
     }
 }

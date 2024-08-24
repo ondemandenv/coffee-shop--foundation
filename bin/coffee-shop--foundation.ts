@@ -26,7 +26,6 @@ async function main() {
 
     new OndemandContracts(app)
 
-
     const targetEnver = OndemandContracts.inst.getTargetEnver() as ContractsEnverCdk
 
     new CoffeeShopFoundationStack(app, targetEnver.getRevStackNames()[0], props)
