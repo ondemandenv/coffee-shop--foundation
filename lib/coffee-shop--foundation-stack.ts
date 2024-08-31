@@ -56,7 +56,6 @@ export class CoffeeShopFoundationStack extends cdk.Stack {
             ]
         })
 
-
         const myEnver = OndemandContracts.inst.getTargetEnver() as CoffeeShopFoundationEnver
 
         new ContractsShareOut(
