@@ -1,7 +1,8 @@
 import {CloudFormationCustomResourceEvent} from "aws-lambda";
-import {BatchWriteItemCommand, DynamoDBClient, WriteRequest,} from "@aws-sdk/client-dynamodb";
+import {AttributeValue, BatchWriteItemCommand, DynamoDBClient, WriteRequest,} from "@aws-sdk/client-dynamodb";
 
 import * as resp from "cfn-response"
+import {DeleteRequest} from "@aws-sdk/client-dynamodb/dist-types/models/models_0";
 
 
 export async function handler(event: CloudFormationCustomResourceEvent, context: any) {
@@ -18,11 +19,15 @@ export async function handler(event: CloudFormationCustomResourceEvent, context:
 
 
     const tableName = event.ResourceProperties.tableName as string
-    const initData = event.ResourceProperties.initData as Array<any>;
+    const partitionKeyName = event.ResourceProperties.partitionKeyName as string
+    const initData = event.ResourceProperties.initData as Record<string, AttributeValue>[];
     if (event.RequestType == "Delete") {
         const RequestItems: Record<string, WriteRequest[]> = {};
-        RequestItems[tableName] = initData.map(i => {
-            let deleteRequest = {Key: {pk: i.pk}};
+        RequestItems[tableName] = initData.map(record => {
+            const deleteRequest = {Key: {[partitionKeyName]: record[partitionKeyName]}} as DeleteRequest;
+            if (event.ResourceProperties.sortKeyName) {
+                deleteRequest.Key![event.ResourceProperties.sortKeyName] = record [event.ResourceProperties.sortKeyName]
+            }
             console.log(deleteRequest)
             return {DeleteRequest: deleteRequest}
         })

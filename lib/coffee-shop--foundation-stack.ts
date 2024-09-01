@@ -10,6 +10,7 @@ import {InitDynamoDb} from "./init-dynamodb";
 import {marshall} from "@aws-sdk/util-dynamodb";
 import {ContractsCrossRefProducer, ContractsShareOut, OndemandContracts} from "@ondemandenv/odmd-contracts";
 import {CoffeeShopFoundationEnver} from "@ondemandenv/odmd-contracts/lib/repos/coffee-shop/coffee-shop-foundation-cdk";
+import {Attribute} from "aws-cdk-lib/aws-dynamodb/lib/shared";
 
 
 export class CoffeeShopFoundationStack extends cdk.Stack {
@@ -23,37 +24,40 @@ export class CoffeeShopFoundationStack extends cdk.Stack {
             targets: [new CloudWatchLogGroup(new LogGroup(this, 'logAll-log-group', {retention: RetentionDays.TWO_WEEKS}))]
         })
 
-        const configTable = new Table(this, 'configTable', {
-            partitionKey: {name: 'pk', type: AttributeType.STRING},
+        let configTableProps = {
+            partitionKey: {name: 'PK', type: AttributeType.STRING},
             billingMode: BillingMode.PAY_PER_REQUEST,
             // billing: Billing.onDemand(),
             removalPolicy: RemovalPolicy.DESTROY
-        });
+        } as { partitionKey: Attribute }
+        const configTable = new Table(this, 'configTable', configTableProps);
 
         new InitDynamoDb(this, 'init-configTable', {
             table: configTable, data: [
                 JSON.parse(fs.readFileSync(__dirname + `/menu.json`).toString("utf-8")),
                 marshall({
-                    "pk": "config",
+                    "PK": "config",
                     "maxOrdersInQueue": 10,
                     "maxOrdersPerUser": 1,
                     "storeOpen": true
                 })
-            ]
+            ],
+            partitionKey: configTableProps.partitionKey
         })
 
-        const countTablePk = {name: 'pk', type: AttributeType.STRING};
-        const countingTable = new Table(this, 'countingTable-tmp', {
-            partitionKey: countTablePk,
+        const countableProps = {
+            partitionKey: {name: 'PK', type: AttributeType.STRING},
             billingMode: BillingMode.PAY_PER_REQUEST,
             // billing: Billing.onDemand(),
             removalPolicy: RemovalPolicy.DESTROY
-        })
+        } as { partitionKey: Attribute };
+        const countingTable = new Table(this, 'countingTable-tmp', countableProps)
 
         new InitDynamoDb(this, 'init-countTable', {
             table: countingTable, data: [
-                marshall({[countTablePk.name]: 'orderID', IDvalue: 0})
-            ]
+                marshall({[countableProps.partitionKey.name]: 'orderID', IDvalue: 0})
+            ],
+            partitionKey: countableProps.partitionKey
         })
 
         const myEnver = OndemandContracts.inst.getTargetEnver() as CoffeeShopFoundationEnver
