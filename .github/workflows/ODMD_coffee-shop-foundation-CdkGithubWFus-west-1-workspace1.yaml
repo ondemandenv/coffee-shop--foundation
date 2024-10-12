@@ -50,5 +50,3 @@ jobs:
           ODMD_buildType: CdkGithubWF
           ODMD_awsRegion: us-west-1
           ODMD_SECRETS: ${{ secrets['ODMD_SECRETS_ODMD_coffee_shop_foundation_CdkGithubWFus_west_1_workspace1'] }}
-
-#
