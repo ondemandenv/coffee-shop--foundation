@@ -31,18 +31,13 @@ jobs:
           ODMD_buildId: coffee-shop-foundation
           ODMD_awsRegion: us-west-1
           ODMD_SECRETS: ${{ secrets['ODMD_SECRETS_ODMD_coffee_shop_foundation_CdkGithubWFus_west_1_workspace1'] }}
-      - name: aaa
-        run: |
+      - run: |
           set -ex
           cd ${{ env.ODMD_work_dir }}
-
-          pwd
-
-
-          env
-          
           ${{ env.ODMD_entry_cmd }}
-        
+        with:
+          aws_credentials: ${{github.event.inputs.aws_credentials}}
+          trigger_message: ${{github.event.inputs.message}}
         env:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           ODMD_buildId: coffee-shop-foundation
@@ -50,3 +45,5 @@ jobs:
           ODMD_buildType: CdkGithubWF
           ODMD_awsRegion: us-west-1
           ODMD_SECRETS: ${{ secrets['ODMD_SECRETS_ODMD_coffee_shop_foundation_CdkGithubWFus_west_1_workspace1'] }}
+
+#
