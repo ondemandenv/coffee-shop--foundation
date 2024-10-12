@@ -35,6 +35,12 @@ jobs:
         run: |
           set -ex
           cd ${{ env.ODMD_work_dir }}
+
+          pwd
+
+
+          env
+          
           ${{ env.ODMD_entry_cmd }}
         
         env:
