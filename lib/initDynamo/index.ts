@@ -1,8 +1,7 @@
 import {CloudFormationCustomResourceEvent} from "aws-lambda";
-import {AttributeValue, BatchWriteItemCommand, DynamoDBClient, WriteRequest,} from "@aws-sdk/client-dynamodb";
+import {AttributeValue, BatchWriteItemCommand, DynamoDBClient, WriteRequest, DeleteRequest} from "@aws-sdk/client-dynamodb";
 
 import * as resp from "cfn-response"
-import {DeleteRequest} from "@aws-sdk/client-dynamodb/dist-types/models/models_0";
 
 
 export async function handler(event: CloudFormationCustomResourceEvent, context: any) {
