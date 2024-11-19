@@ -8,8 +8,12 @@ import {AttributeType, BillingMode, Table} from "aws-cdk-lib/aws-dynamodb";
 import {RemovalPolicy} from "aws-cdk-lib";
 import {InitDynamoDb} from "./init-dynamodb";
 import {marshall} from "@aws-sdk/util-dynamodb";
-import {ContractsCrossRefProducer, ContractsShareOut, OndemandContracts} from "@ondemandenv/odmd-contracts";
-import {CoffeeShopFoundationEnver} from "@ondemandenv/odmd-contracts/lib/repos/coffee-shop/coffee-shop-foundation-cdk";
+import {OdmdCrossRefProducer, OdmdEnverCdk, OdmdShareOut} from "@ondemandenv/contracts-lib-base";
+import {
+    CoffeeShopFoundationEnver,
+    OndemandContractsSandbox,
+    SampleSpringOpenApi3CdkEnver
+} from "@ondemandenv/odmd-contracts-sandbox";
 import {Attribute} from "aws-cdk-lib/aws-dynamodb/lib/shared";
 
 
@@ -60,10 +64,10 @@ export class CoffeeShopFoundationStack extends cdk.Stack {
             partitionKey: countableProps.partitionKey
         })
 
-        const myEnver = OndemandContracts.inst.getTargetEnver() as CoffeeShopFoundationEnver
+        const myEnver = OndemandContractsSandbox.inst.getTargetEnver() as CoffeeShopFoundationEnver
 
-        new ContractsShareOut(
-            this, new Map<ContractsCrossRefProducer<CoffeeShopFoundationEnver>, any>([
+        new OdmdShareOut(
+            this, new Map<OdmdCrossRefProducer<CoffeeShopFoundationEnver>, any>([
                 [myEnver.configTableName, configTable.tableName],
                 [myEnver.countTableName, countingTable.tableName],
                 [myEnver.eventBusSrc, eventBus.eventBusName],
